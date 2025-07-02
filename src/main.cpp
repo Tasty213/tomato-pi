@@ -2,6 +2,8 @@
 #include <wiringPi.h>
 #include <stdio.h>
 
+bool read_gpio(int pin);
+
 int main()
 {
     if (wiringPiSetup() == -1)
@@ -13,9 +15,14 @@ int main()
     pinMode(0, OUTPUT); // aka BCM_GPIO pin 17
     while (true)
     {
-        auto value = digitalRead(0); // On
+        auto value = read_gpio(0);
         fmt::print("LED is {}\n", value ? "ON" : "OFF");
-        delay(500); // mS
+        delay(500);
     }
     return 0;
+}
+
+bool read_gpio(int pin)
+{
+    return digitalRead(pin);
 }
