@@ -8,6 +8,10 @@ on:
   pull_request:
     branches: [ "main" ]
 
+env:
+  WIRINGPI_VERSION: 3.16
+  WIRINGPI_ARCH: arm64
+
 jobs:
   build:
     # The CMake configure and build commands are platform agnostic and should work equally well on Windows or Mac.
@@ -26,6 +30,10 @@ jobs:
         ./bootstrap-vcpkg.sh
         echo "VCPKG_ROOT=${{github.workspace}}/vcpkg" >> $GITHUB_ENV
         echo "PATH=$VCPKG_ROOT:$PATH" >> $GITHUB_ENV
+    - name: Install wiringPi
+      run: |
+        curl -L https://github.com/WiringPi/WiringPi/releases/download/3.16/wiringpi_$WIRINGPI_VERSION_$WIRINGPI_ARCH.deb > wiringpi.deb 
+        sudo apt install -y ./wiringpi.deb
 
     - name: Configure CMake
       run: cmake --preset=vcpkg
