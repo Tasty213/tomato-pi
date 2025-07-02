@@ -28,7 +28,7 @@ jobs:
         echo "PATH=$VCPKG_ROOT:$PATH" >> $GITHUB_ENV
 
     - name: Configure CMake
-      run: cmake --preset=default
+      run: cmake --preset=vcpkg
 
     - name: Build
       run: cmake --build build
