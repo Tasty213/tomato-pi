@@ -24,7 +24,7 @@ jobs:
       working-directory: ${{github.workspace}}/vcpkg
       run: |
         ./bootstrap-vcpkg.sh
-        echo "VCPKG_ROOT=/path/to/vcpkg" >> $GITHUB_ENV
+        echo "VCPKG_ROOT=${{github.workspace}}/vcpkg" >> $GITHUB_ENV
         echo "PATH=$VCPKG_ROOT:$PATH" >> $GITHUB_ENV
 
     - name: Configure CMake
