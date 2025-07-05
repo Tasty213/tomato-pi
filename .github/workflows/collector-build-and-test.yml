@@ -28,7 +28,7 @@ jobs:
         working-directory: ${{github.workspace}}/collector/vcpkg
         run: |
           ./bootstrap-vcpkg.sh
-          echo "VCPKG_ROOT=${{github.workspace}}/vcpkg" >> $GITHUB_ENV
+          echo "VCPKG_ROOT=${{github.workspace}}/collector/vcpkg" >> $GITHUB_ENV
           echo "PATH=$VCPKG_ROOT:$PATH" >> $GITHUB_ENV
       - name: Install wiringPi
         working-directory: ${{github.workspace}}/collector
