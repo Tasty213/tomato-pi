@@ -45,6 +45,5 @@ jobs:
         run: cmake --build build
 
       - name: Test
-        working-directory: ${{github.workspace}}/collector
-        working-directory: ${{github.workspace}}/build
+        working-directory: ${{github.workspace}}/collector/build
         run: ctest
