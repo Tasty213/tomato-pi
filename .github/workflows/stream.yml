@@ -1,0 +1,35 @@
+# This starter workflow is for a CMake project running on a single platform. There is a different starter workflow if you need cross-platform coverage.
+# See: https://github.com/actions/starter-workflows/blob/main/ci/cmake-multi-platform.yml
+name: Build Kafka Docker Image
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - "stream/**"
+  pull_request:
+    branches: ["main"]
+    paths:
+      - "stream/**"
+      - ".github/workflows/stream.yml"
+
+jobs:
+  build:
+    # The CMake configure and build commands are platform agnostic and should work equally well on Windows or Mac.
+    # You can convert this to a matrix build if you need cross-platform coverage.
+    # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
+    runs-on: ubuntu-24.04-arm
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Kafka image
+        uses: docker/build-push-action@v6
+        with:
+          context: ./stream
+          file: ./stream/stream.containerfile
+          push: false
+          tags: user/app:latest
